@@ -97,13 +97,14 @@ function skrivTabel(datoer, helligdage) {
   container.innerHTML = '';
   const table = document.createElement('table');
 
-  // Main header row with only two columns
+  // Main header row with only two columns, centered text
   const headerRow = table.insertRow();
   ['For genudlejning til den:', 'Fraflyt din bolig senest kl. 9.00 den:']
     .forEach(text => {
       const th = document.createElement('th');
       th.className = 'main-header';
       th.textContent = text;
+      th.style.textAlign = 'center'; // center the header text
       headerRow.appendChild(th);
     });
 
