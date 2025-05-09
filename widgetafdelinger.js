@@ -1,5 +1,5 @@
-// opsigelsestabel-widget.js
-// Place this file in your GitHub repo and load it via <script type="module" src=".../widget.js"></script>
+// widgetafdelinger.js
+// Place this file in your GitHub repo and load it via <script type="module" src=".../widgetafdelinger.js"></script>
 
 // --- Helper functions for dates and holidays ---
 function parseDate(dateStr) {
@@ -96,40 +96,53 @@ function skrivTabel(datoer, helligdage) {
   if (!container) return;
   container.innerHTML = '';
   const table = document.createElement('table');
-  table.className = 'w-full border-collapse bg-white rounded-lg overflow-hidden';
 
-  // Header row
-  const headerRow = table.insertRow();
+  // College header row
+  const colRow = table.insertRow();
+  for (let i = 0; i < 2; i++) {
+    const c = colRow.insertCell();
+    c.className = 'college-header';
+    c.innerHTML = '';
+  }
+  let c = colRow.insertCell();
+  c.className = 'college-header';
+  c.innerHTML = 'Ravnsbjerg Kollegiet<br>Tandlæge Kollegiet';
+  c = colRow.insertCell();
+  c.className = 'college-header';
+  c.innerHTML = 'Skjoldhøjkollegiet<br>Vilh. Kiers Kollegium';
+
+  // Main header row
+  const hdr = table.insertRow();
   ['For genudlejning til den:', 'Fraflyt din bolig senest kl. 9.00 den:']
     .forEach(text => {
       const th = document.createElement('th');
+      th.className = 'main-header';
       th.textContent = text;
-      th.className = 'border border-gray-300 p-3 text-center bg-header-bg font-semibold';
-      headerRow.appendChild(th);
+      hdr.appendChild(th);
     });
 
   // Data rows
   datoer.forEach((d, i) => {
     const row = table.insertRow();
-    row.className = i % 2 === 0 ? 'bg-row-colored' : 'bg-white';
+    row.className = i % 2 === 0 ? 'row-colored' : 'row-white';
     const vacateBy = findFraflytRaTk(d, helligdage);
     [d, vacateBy].forEach((val, ci) => {
       const cell = row.insertCell();
       cell.textContent = val;
-      cell.className = 'border border-gray-300 p-3 text-center' + (ci === 0 ? ' font-medium' : '');
+      if (ci === 0) cell.className = 'date-column';
     });
   });
 
   container.appendChild(table);
 }
 
-// Entry point: call this after the page and Tailwind have loaded
+// Entry point
 export async function initWidget() {
   const { datoer, helligdage } = await findDatoerOgHelligdage();
   skrivTabel(datoer, helligdage);
 }
 
-// Auto-run if loaded as module in a page with DOMContentLoaded
+// Auto-run on DOMContentLoaded
 if (typeof window !== 'undefined') {
   window.addEventListener('DOMContentLoaded', () => {
     initWidget().catch(console.error);
