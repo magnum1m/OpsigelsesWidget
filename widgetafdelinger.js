@@ -97,28 +97,14 @@ function skrivTabel(datoer, helligdage) {
   container.innerHTML = '';
   const table = document.createElement('table');
 
-  // College header row
-  const colRow = table.insertRow();
-  for (let i = 0; i < 2; i++) {
-    const c = colRow.insertCell();
-    c.className = 'college-header';
-    c.innerHTML = '';
-  }
-  let c = colRow.insertCell();
-  c.className = 'college-header';
-  c.innerHTML = 'Ravnsbjerg Kollegiet<br>Tandlæge Kollegiet';
-  c = colRow.insertCell();
-  c.className = 'college-header';
-  c.innerHTML = 'Skjoldhøjkollegiet<br>Vilh. Kiers Kollegium';
-
-  // Main header row
-  const hdr = table.insertRow();
+  // Main header row with only two columns
+  const headerRow = table.insertRow();
   ['For genudlejning til den:', 'Fraflyt din bolig senest kl. 9.00 den:']
     .forEach(text => {
       const th = document.createElement('th');
       th.className = 'main-header';
       th.textContent = text;
-      hdr.appendChild(th);
+      headerRow.appendChild(th);
     });
 
   // Data rows
