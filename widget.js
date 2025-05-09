@@ -154,12 +154,6 @@ function parseDate(dateStr) {
     }
   };
   
-  document.addEventListener('DOMContentLoaded', async () => {
-    const { datoer, helligdage } = await findDatoerOgHelligdage();
-    fetchedData = { datoer, helligdage };
-    skrivTabel(datoer, helligdage);
-    setupLanguageToggle();
-  });
   
   function setupLanguageToggle() {
     const btn = document.getElementById('languageToggle');
@@ -219,5 +213,16 @@ function parseDate(dateStr) {
     });
   
     document.getElementById('resultat').appendChild(table);
+
+      // expose a single entry-point that does everything
+
   }
+
+export async function initWidget() {
+  const { datoer, helligdage } = await findDatoerOgHelligdage();
+  fetchedData = { datoer, helligdage };
+  skrivTabel(datoer, helligdage);
+  setupLanguageToggle();
+}
+
   
