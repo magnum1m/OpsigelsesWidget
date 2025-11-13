@@ -177,6 +177,5 @@ function skrivTabel(datoer, helligdage) {
 export async function initWidget() {
   const { datoer, helligdage } = await findDatoerOgHelligdage();
   fetchedData = { datoer, helligdage };
-  document.getElementById('pageTitle').textContent = 'Termination Overview';
   skrivTabel(datoer, helligdage);
 }
