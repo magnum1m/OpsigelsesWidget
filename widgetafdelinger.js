@@ -59,7 +59,7 @@ function findDatoer() {
   const today = new Date();
   today.setDate(1);
   const datoer = [];
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 13; i++) {
     const d1 = new Date(today);
     const d15 = new Date(today);
     d1.setMonth(today.getMonth() + i);
@@ -135,3 +135,4 @@ if (typeof window !== 'undefined') {
     initWidget().catch(console.error);
   });
 }
+
